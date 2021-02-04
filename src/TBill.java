@@ -1,10 +1,9 @@
-
 public class TBill {
     
     public static void main(String[] args) {
         
-        login l = new login();
-        l.setVisible(true); 
+        login login = new login();
+        login.setVisible(true); 
         
     }
 }
