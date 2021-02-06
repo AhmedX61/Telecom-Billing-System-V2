@@ -5,15 +5,15 @@ import java.sql.*;
 public class login extends JFrame implements MouseListener{
 
     JPanel panel;
-    Color c;
-    Font f1,f2,f3,f4;
-    JTextField t;
-    JPasswordField pf;
-    JLabel[] l;
-    Connection conn;
-    PreparedStatement ps = null;
-    ResultSet rs = null;
-    String log;
+    Color color;
+    Font font1,font2,font3,font4;
+    JTextField textfield;
+    JPasswordField passwordfield;
+    JLabel[] label;
+    Connection connection;
+    PreparedStatement preparedstatement = null;
+    ResultSet resultset = null;
+    String sql;
     
     public login() {
         
@@ -24,106 +24,106 @@ public class login extends JFrame implements MouseListener{
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         panel = new JPanel();
-        l = new JLabel[10];
-        c = new Color(0,102,102);
-        f1 = new Font("seirf", Font.BOLD, 25);
-        f2 = new Font("seirf", Font.CENTER_BASELINE, 20);
-        f3 = new Font("seirf", Font.CENTER_BASELINE, 16);
-        f4 = new Font("seirf", Font.BOLD, 13);
+        label = new JLabel[10];
+        color = new Color(0,102,102);
+        font1 = new Font("seirf", Font.BOLD, 25);
+        font2 = new Font("seirf", Font.CENTER_BASELINE, 20);
+        font3 = new Font("seirf", Font.CENTER_BASELINE, 16);
+        font4 = new Font("seirf", Font.BOLD, 13);
         
-        panel.setBackground(c);
+        panel.setBackground(color);
         panel.setLayout(null);
         this.add(panel);
         
-        l[0] = new JLabel("Login");
-        l[0].setForeground(Color.WHITE);
-        l[0].setBounds(5, 0, 120, 30);
-        l[0].setFont(f1);
-        panel.add(l[0]);
+        label[0] = new JLabel("Login");
+        label[0].setForeground(Color.WHITE);
+        label[0].setBounds(5, 0, 120, 30);
+        label[0].setFont(font1);
+        panel.add(label[0]);
         
-        l[1] = new JLabel("User Name");
-        l[1].setForeground(Color.WHITE);
-        l[1].setBounds(35, 80, 150, 30);
-        l[1].setFont(f3);
-        panel.add(l[1]);
+        label[1] = new JLabel("User Name");
+        label[1].setForeground(Color.WHITE);
+        label[1].setBounds(35, 80, 150, 30);
+        label[1].setFont(font3);
+        panel.add(label[1]);
         
-        l[2] = new JLabel("Password");
-        l[2].setForeground(Color.WHITE);
-        l[2].setBounds(35, 150, 150, 30);
-        l[2].setFont(f3);
-        panel.add(l[2]);
+        label[2] = new JLabel("Password");
+        label[2].setForeground(Color.WHITE);
+        label[2].setBounds(35, 150, 150, 30);
+        label[2].setFont(font3);
+        panel.add(label[2]);
         
-        t = new JTextField();
-        t.setBounds(35, 110, 220, 30);
-        t.setFont(f4);
-        panel.add(t);
+        textfield = new JTextField();
+        textfield.setBounds(35, 110, 220, 30);
+        textfield.setFont(font4);
+        panel.add(textfield);
         
-        pf = new JPasswordField();
-        pf.setBounds(35, 180, 220, 30);
-        pf.setFont(f4);
-        panel.add(pf);
+        passwordfield = new JPasswordField();
+        passwordfield.setBounds(35, 180, 220, 30);
+        passwordfield.setFont(font4);
+        panel.add(passwordfield);
         
-        l[3] = new JLabel("   X");
-        l[3].setBackground(c);
-        l[3].setOpaque(true);
-        l[3].setForeground(Color.WHITE);
-        l[3].setBounds(250, 0, 50, 30);
-        l[3].setFont(f2);
-        panel.add(l[3]);
-        l[3].addMouseListener(this);
+        label[3] = new JLabel("   X");
+        label[3].setBackground(color);
+        label[3].setOpaque(true);
+        label[3].setForeground(Color.WHITE);
+        label[3].setBounds(250, 0, 50, 30);
+        label[3].setFont(font2);
+        panel.add(label[3]);
+        label[3].addMouseListener(this);
         
-        l[4] = new JLabel("  ---");
-        l[4].setBackground(c);
-        l[4].setOpaque(true);
-        l[4].setForeground(Color.WHITE);
-        l[4].setBounds(200, 0, 50, 30);
-        l[4].setFont(f2);
-        panel.add(l[4]);
-        l[4].addMouseListener(this);
+        label[4] = new JLabel("  ---");
+        label[4].setBackground(color);
+        label[4].setOpaque(true);
+        label[4].setForeground(Color.WHITE);
+        label[4].setBounds(200, 0, 50, 30);
+        label[4].setFont(font2);
+        panel.add(label[4]);
+        label[4].addMouseListener(this);
         
-        l[5] = new JLabel("             Login");
-        l[5].setBackground(new Color(211, 84, 0));
-        l[5].setOpaque(true);
-        l[5].setForeground(Color.WHITE);
-        l[5].setFont(f3);
-        l[5].setBounds(75, 250, 150, 30);
-        panel.add(l[5]);
-        l[5].addMouseListener(this);
+        label[5] = new JLabel("             Login");
+        label[5].setBackground(new Color(211, 84, 0));
+        label[5].setOpaque(true);
+        label[5].setForeground(Color.WHITE);
+        label[5].setFont(font3);
+        label[5].setBounds(75, 250, 150, 30);
+        panel.add(label[5]);
+        label[5].addMouseListener(this);
         
     }
     
     @Override
     public void mouseClicked(MouseEvent me) {
-        if (me.getSource() == l[3]) {
+        if (me.getSource() == label[3]) {
             System.exit(0);
         }
-        if (me.getSource() == l[4]) {
+        if (me.getSource() == label[4]) {
             this.setState(JFrame.ICONIFIED);
         }
-        if (me.getSource() == l[5]) {
+        if (me.getSource() == label[5]) {
         try{
             Class.forName("org.sqlite.JDBC");
-            conn = DriverManager.getConnection("JDBC:sqlite:tlecome.db");
+            connection = DriverManager.getConnection("JDBC:sqlite:tlecome.db");
             System.out.println("Connected");
-            if ("admin".equals(t.getText())) {
-                log="SELECT * FROM admin WHERE username=? AND pass=?";
-                ps=conn.prepareStatement(log);
-                ps.setString(1,t.getText());
-                ps.setString(2,pf.getText());
-                rs=ps.executeQuery();
-                if (rs.next()) {
+            if ("admin".equals(textfield.getText())) {
+                sql="SELECT * FROM admin WHERE username=? AND pass=?";
+                preparedstatement=connection.prepareStatement(sql);
+                preparedstatement.setString(1,textfield.getText());
+                preparedstatement.setString(2,passwordfield.getText());
+                resultset=preparedstatement.executeQuery();
+                if (resultset.next()) {
                 new admin().setVisible(true);
                 this.dispose();
                 }else{
                     JOptionPane.showMessageDialog(null,"Wrong");
                 }
             }else{
-                log="SELECT * FROM employee WHERE name=? AND pass=?";
-                ps=conn.prepareStatement(log);
-                ps.setString(1,t.getText());
-                ps.setString(2,pf.getText());
-                rs=ps.executeQuery();
-                if (rs.next()) {
+                sql="SELECT * FROM employee WHERE name=? AND pass=?";
+                preparedstatement=connection.prepareStatement(sql);
+                preparedstatement.setString(1,textfield.getText());
+                preparedstatement.setString(2,passwordfield.getText());
+                resultset=preparedstatement.executeQuery();
+                if (resultset.next()) {
                 new employee().setVisible(true);
                 this.dispose();
                 }else{
@@ -140,42 +140,42 @@ public class login extends JFrame implements MouseListener{
 
     @Override
     public void mousePressed(MouseEvent me) {
-        if (me.getSource() == l[3]) {
-            l[3].setBackground(Color.RED.brighter());
+        if (me.getSource() == label[3]) {
+            label[3].setBackground(Color.RED.brighter());
         }
-        if (me.getSource() == l[4]) {
-            l[4].setBackground(Color.GRAY.brighter());
+        if (me.getSource() == label[4]) {
+            label[4].setBackground(Color.GRAY.brighter());
         }
         
     }
 
     @Override
     public void mouseReleased(MouseEvent me) {
-        if (me.getSource() == l[3]) {
-            l[3].setBackground(Color.RED.darker());
+        if (me.getSource() == label[3]) {
+            label[3].setBackground(Color.RED.darker());
         }
-        if (me.getSource() == l[4]) {
-            l[4].setBackground(Color.GRAY);
+        if (me.getSource() == label[4]) {
+            label[4].setBackground(Color.GRAY);
         }
     }
 
     @Override
     public void mouseEntered(MouseEvent me) {
-        if (me.getSource() == l[3]) {
-            l[3].setBackground(Color.RED.darker());
+        if (me.getSource() == label[3]) {
+            label[3].setBackground(Color.RED.darker());
         }
-        if (me.getSource() == l[4]) {
-            l[4].setBackground(Color.GRAY);
+        if (me.getSource() == label[4]) {
+            label[4].setBackground(Color.GRAY);
         }
     }
 
     @Override
     public void mouseExited(MouseEvent me) {
-        if (me.getSource() == l[3]) {
-            l[3].setBackground(c);
+        if (me.getSource() == label[3]) {
+            label[3].setBackground(color);
         }
-        if (me.getSource() == l[4]) {
-            l[4].setBackground(c);
+        if (me.getSource() == label[4]) {
+            label[4].setBackground(color);
         }
     }
 }
