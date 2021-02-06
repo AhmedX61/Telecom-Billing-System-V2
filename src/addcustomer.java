@@ -7,16 +7,16 @@ import net.proteanit.sql.DbUtils;
 
 public class addcustomer extends JFrame implements MouseListener{
     
-     JPanel p;
-    JLabel[] l;
-    JTextField t,t1,t2;
+    JPanel panel;
+    JLabel[] label;
+    JTextField textfield1,textfield2,textfield3;
     JTable table;
-    Color c,c1;
-    Font f,f1,f2;
-    Connection conn;
-    PreparedStatement ps = null;
-    ResultSet rs = null;
-    String log;
+    Color color1,color2;
+    Font font1,font2,font3;
+    Connection connection;
+    PreparedStatement preparedstatement = null;
+    ResultSet resultset = null;
+    String sql;
     
     public addcustomer() {
         
@@ -26,138 +26,138 @@ public class addcustomer extends JFrame implements MouseListener{
         this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        p = new JPanel();
+        panel = new JPanel();
         table = new JTable();
-        l = new JLabel[20];
-        t = new JTextField();
-        t1 = new JTextField();
-        t2 = new JTextField();
-        c = new Color(0, 102, 102);
-        c1 = new Color(211, 84, 0);
-        f = new Font("seirf", Font.BOLD, 22);
-        f1 = new Font("seirf", Font.BOLD, 25);
-        f2 = new Font("seirf", Font.BOLD, 18);
+        label = new JLabel[20];
+        textfield1 = new JTextField();
+        textfield2 = new JTextField();
+        textfield3 = new JTextField();
+        color1 = new Color(0, 102, 102);
+        color2 = new Color(211, 84, 0);
+        font1 = new Font("seirf", Font.BOLD, 22);
+        font2 = new Font("seirf", Font.BOLD, 25);
+        font3 = new Font("seirf", Font.BOLD, 18);
         
-        p.setBackground(c);
-        p.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        p.setLayout(null);
-        this.add(p);
+        panel.setBackground(color1);
+        panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        panel.setLayout(null);
+        this.add(panel);
         
-        t1.setBounds(160, 100, 300, 35);
-        t1.setFont(f);
-        p.add(t1);
+        textfield2.setBounds(160, 100, 300, 35);
+        textfield2.setFont(font1);
+        panel.add(textfield2);
         
-        t2.setBounds(160, 160, 300, 35);
-        t2.setFont(f);
-        p.add(t2);
+        textfield3.setBounds(160, 160, 300, 35);
+        textfield3.setFont(font1);
+        panel.add(textfield3);
         
         table.setBounds(30, 300, 1304, 410);
-        p.add(table);
+        panel.add(table);
         
-        l[0] = new JLabel("Add New Customer");
-        l[0].setForeground(Color.WHITE);
-        l[0].setBounds(8, 3, 300, 30);
-        l[0].setFont(f1);
-        p.add(l[0]);
+        label[0] = new JLabel("Add New Customer");
+        label[0].setForeground(Color.WHITE);
+        label[0].setBounds(8, 3, 300, 30);
+        label[0].setFont(font2);
+        panel.add(label[0]);
         
-        l[1] = new JLabel("   X");
-        l[1].setBackground(c);
-        l[1].setOpaque(true);
-        l[1].setForeground(Color.WHITE);
-        l[1].setBounds(1315, 1, 50, 30);
-        l[1].setFont(f);
-        p.add(l[1]);
-        l[1].addMouseListener(this);
+        label[1] = new JLabel("   X");
+        label[1].setBackground(color1);
+        label[1].setOpaque(true);
+        label[1].setForeground(Color.WHITE);
+        label[1].setBounds(1315, 1, 50, 30);
+        label[1].setFont(font1);
+        panel.add(label[1]);
+        label[1].addMouseListener(this);
         
-        l[2] = new JLabel("  ---");
-        l[2].setBackground(c);
-        l[2].setOpaque(true);
-        l[2].setForeground(Color.WHITE);
-        l[2].setBounds(1265, 1, 50, 30);
-        l[2].setFont(f);
-        p.add(l[2]);
-        l[2].addMouseListener(this);
+        label[2] = new JLabel("  ---");
+        label[2].setBackground(color1);
+        label[2].setOpaque(true);
+        label[2].setForeground(Color.WHITE);
+        label[2].setBounds(1265, 1, 50, 30);
+        label[2].setFont(font1);
+        panel.add(label[2]);
+        label[2].addMouseListener(this);
         
-        l[4] = new JLabel("Name:");
-        l[4].setBackground(c);
-        l[4].setOpaque(true);
-        l[4].setForeground(Color.BLACK);
-        l[4].setBounds(70, 100, 175, 30);
-        l[4].setFont(f);
-        p.add(l[4]);
+        label[4] = new JLabel("Name:");
+        label[4].setBackground(color1);
+        label[4].setOpaque(true);
+        label[4].setForeground(Color.BLACK);
+        label[4].setBounds(70, 100, 175, 30);
+        label[4].setFont(font1);
+        panel.add(label[4]);
         
-        l[5] = new JLabel("Phone:");
-        l[5].setBackground(c);
-        l[5].setOpaque(true);
-        l[5].setForeground(Color.BLACK);
-        l[5].setBounds(70, 160, 175, 30);
-        l[5].setFont(f);
-        p.add(l[5]);
+        label[5] = new JLabel("Phone:");
+        label[5].setBackground(color1);
+        label[5].setOpaque(true);
+        label[5].setForeground(Color.BLACK);
+        label[5].setBounds(70, 160, 175, 30);
+        label[5].setFont(font1);
+        panel.add(label[5]);
         
-        l[6] = new JLabel("     Add");
-        l[6].setBackground(c1);
-        l[6].setOpaque(true);
-        l[6].setForeground(Color.WHITE);
-        l[6].setBounds(120, 240, 100, 30);
-        l[6].setFont(f);
-        p.add(l[6]);
-        l[6].addMouseListener(this);
+        label[6] = new JLabel("     Add");
+        label[6].setBackground(color2);
+        label[6].setOpaque(true);
+        label[6].setForeground(Color.WHITE);
+        label[6].setBounds(120, 240, 100, 30);
+        label[6].setFont(font1);
+        panel.add(label[6]);
+        label[6].addMouseListener(this);
         
-        l[7] = new JLabel("   Delete");
-        l[7].setBackground(c1);
-        l[7].setOpaque(true);
-        l[7].setForeground(Color.WHITE);
-        l[7].setBounds(240, 240, 100, 30);
-        l[7].setFont(f);
-        p.add(l[7]);
-        l[7].addMouseListener(this);
+        label[7] = new JLabel("   Delete");
+        label[7].setBackground(color2);
+        label[7].setOpaque(true);
+        label[7].setForeground(Color.WHITE);
+        label[7].setBounds(240, 240, 100, 30);
+        label[7].setFont(font1);
+        panel.add(label[7]);
+        label[7].addMouseListener(this);
         
-        l[8] = new JLabel("   Update");
-        l[8].setBackground(c1);
-        l[8].setOpaque(true);
-        l[8].setForeground(Color.WHITE);
-        l[8].setBounds(360, 240, 110, 30);
-        l[8].setFont(f);
-        p.add(l[8]);
-        l[8].addMouseListener(this);
+        label[8] = new JLabel("   Update");
+        label[8].setBackground(color2);
+        label[8].setOpaque(true);
+        label[8].setForeground(Color.WHITE);
+        label[8].setBounds(360, 240, 110, 30);
+        label[8].setFont(font1);
+        panel.add(label[8]);
+        label[8].addMouseListener(this);
         
-        l[3] = new JLabel("   Show to Update");
-        l[3].setBackground(c1);
-        l[3].setOpaque(true);
-        l[3].setForeground(Color.WHITE);
-        l[3].setBounds(480, 240, 200, 30);
-        l[3].setFont(f);
-        p.add(l[3]);
-        l[3].addMouseListener(this);
+        label[3] = new JLabel("   Show to Update");
+        label[3].setBackground(color2);
+        label[3].setOpaque(true);
+        label[3].setForeground(Color.WHITE);
+        label[3].setBounds(480, 240, 200, 30);
+        label[3].setFont(font1);
+        panel.add(label[3]);
+        label[3].addMouseListener(this);
         
-        l[9] = new JLabel("  Show All Customers");
-        l[9].setBackground(c1);
-        l[9].setOpaque(true);
-        l[9].setForeground(Color.WHITE);
-        l[9].setBounds(690, 240, 230, 30);
-        l[9].setFont(f);
-        p.add(l[9]);
-        l[9].addMouseListener(this);
+        label[9] = new JLabel("  Show All Customers");
+        label[9].setBackground(color2);
+        label[9].setOpaque(true);
+        label[9].setForeground(Color.WHITE);
+        label[9].setBounds(690, 240, 230, 30);
+        label[9].setFont(font1);
+        panel.add(label[9]);
+        label[9].addMouseListener(this);
         
-        l[10] = new JLabel("        Back");
-        l[10].setBackground(c1);
-        l[10].setOpaque(true);
-        l[10].setForeground(Color.WHITE);
-        l[10].setBounds(1150, 240, 150, 30);
-        l[10].setFont(f);
-        p.add(l[10]);
-        l[10].addMouseListener(this);
+        label[10] = new JLabel("        Back");
+        label[10].setBackground(color2);
+        label[10].setOpaque(true);
+        label[10].setForeground(Color.WHITE);
+        label[10].setBounds(1150, 240, 150, 30);
+        label[10].setFont(font1);
+        panel.add(label[10]);
+        label[10].addMouseListener(this);
     }
     
     private void Displaytable(){
         try{
             Class.forName("org.sqlite.JDBC");
-            conn=DriverManager.getConnection("JDBC:sqlite:tlecome.db");
+            connection=DriverManager.getConnection("JDBC:sqlite:tlecome.db");
             System.out.println("Connected");
-            log = "SELECT * FROM customer";
-            ps = conn.prepareStatement(log);
-            rs = ps.executeQuery();
-            table.setModel(DbUtils.resultSetToTableModel(rs));
+            sql = "SELECT * FROM customer";
+            preparedstatement = connection.prepareStatement(sql);
+            resultset = preparedstatement.executeQuery();
+            table.setModel(DbUtils.resultSetToTableModel(resultset));
         }
         catch(Exception e){
             JOptionPane.showMessageDialog(null, e);
@@ -166,64 +166,64 @@ public class addcustomer extends JFrame implements MouseListener{
     
     @Override
     public void mouseClicked(MouseEvent me) {
-        if (me.getSource() == l[1]) {
+        if (me.getSource() == label[1]) {
         System.exit(0);
         }
-        if (me.getSource() == l[2]) {
+        if (me.getSource() == label[2]) {
             this.setState(JFrame.ICONIFIED);
         }
-        if (me.getSource() == l[10]) {
+        if (me.getSource() == label[10]) {
             this.setVisible(false);
             employee log = new employee();
             log.setVisible(true);
         }
-        if (me.getSource() == l[9]) {
+        if (me.getSource() == label[9]) {
             Displaytable();
         }
-        if (me.getSource() == l[3]) {
+        if (me.getSource() == label[3]) {
             int i = table.getSelectedRow();
             TableModel model = table.getModel();
-            t1.setText(model.getValueAt(i, 0).toString());
-            t2.setText(model.getValueAt(i, 1).toString());
+            textfield2.setText(model.getValueAt(i, 0).toString());
+            textfield3.setText(model.getValueAt(i, 1).toString());
         }
-        if (me.getSource() == l[6]) {
+        if (me.getSource() == label[6]) {
             try{
                 Class.forName("org.sqlite.JDBC");
-                conn=DriverManager.getConnection("JDBC:sqlite:tlecome.db");
+                connection=DriverManager.getConnection("JDBC:sqlite:tlecome.db");
                 System.out.println("Connected");
-                log = "INSERT INTO customer(name,phone,date) VALUES(?,?,datetime())";
-                ps = conn.prepareStatement(log);
-                ps.setString(1, t1.getText());
-                ps.setString(2, t2.getText());
-                ps.executeUpdate();
+                sql = "INSERT INTO customer(name,phone,date) VALUES(?,?,datetime())";
+                preparedstatement = connection.prepareStatement(sql);
+                preparedstatement.setString(1, textfield2.getText());
+                preparedstatement.setString(2, textfield3.getText());
+                preparedstatement.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Record Added!");
             }catch(Exception e){
                 JOptionPane.showMessageDialog(null, e);
             }
         }
-        if (me.getSource() == l[7]) {
+        if (me.getSource() == label[7]) {
             try{
                 Class.forName("org.sqlite.JDBC");
-                conn=DriverManager.getConnection("JDBC:sqlite:tlecome.db");
+                connection=DriverManager.getConnection("JDBC:sqlite:tlecome.db");
                 System.out.println("Connected");
-                log = "DELETE FROM customer WHERE phone="+t2.getText();
-                ps = conn.prepareStatement(log);
-                ps.executeUpdate();
+                sql = "DELETE FROM customer WHERE phone="+textfield3.getText();
+                preparedstatement = connection.prepareStatement(sql);
+                preparedstatement.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Record Deleted!");
             }catch(Exception e){
                 JOptionPane.showMessageDialog(null, e);
             }
         }
-        if (me.getSource() == l[8]) {
+        if (me.getSource() == label[8]) {
             try{
                 Class.forName("org.sqlite.JDBC");
-                conn=DriverManager.getConnection("JDBC:sqlite:tlecome.db");
+                connection=DriverManager.getConnection("JDBC:sqlite:tlecome.db");
                 System.out.println("Connected");
-                log = "UPDATE customer SET name=?,phone=? WHERE phone="+t2.getText();
-                ps = conn.prepareStatement(log);
-                ps.setString(1, t1.getText());
-                ps.setString(2, t2.getText());
-                ps.executeUpdate();
+                sql = "UPDATE customer SET name=?,phone=? WHERE phone="+textfield3.getText();
+                preparedstatement = connection.prepareStatement(sql);
+                preparedstatement.setString(1, textfield2.getText());
+                preparedstatement.setString(2, textfield3.getText());
+                preparedstatement.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Record Updated!");
             }catch(Exception e){
                 JOptionPane.showMessageDialog(null, e);
@@ -233,41 +233,41 @@ public class addcustomer extends JFrame implements MouseListener{
 
     @Override
     public void mousePressed(MouseEvent me) {
-        if (me.getSource() == l[1]) {
-            l[1].setBackground(Color.RED.brighter());
+        if (me.getSource() == label[1]) {
+            label[1].setBackground(Color.RED.brighter());
         }
-        if (me.getSource() == l[2]) {
-            l[2].setBackground(Color.GRAY.brighter());
+        if (me.getSource() == label[2]) {
+            label[2].setBackground(Color.GRAY.brighter());
         }
     }
 
     @Override
     public void mouseReleased(MouseEvent me) {
-        if (me.getSource() == l[1]) {
-            l[1].setBackground(Color.RED.darker());
+        if (me.getSource() == label[1]) {
+            label[1].setBackground(Color.RED.darker());
         }
-        if (me.getSource() == l[2]) {
-            l[2].setBackground(Color.GRAY);
+        if (me.getSource() == label[2]) {
+            label[2].setBackground(Color.GRAY);
         }
     }
 
     @Override
     public void mouseEntered(MouseEvent me) {
-        if (me.getSource() == l[1]) {
-            l[1].setBackground(Color.RED.darker());
+        if (me.getSource() == label[1]) {
+            label[1].setBackground(Color.RED.darker());
         }
-        if (me.getSource() == l[2]) {
-            l[2].setBackground(Color.GRAY);
+        if (me.getSource() == label[2]) {
+            label[2].setBackground(Color.GRAY);
         }
     }
 
     @Override
     public void mouseExited(MouseEvent me) {
-        if (me.getSource() == l[1]) {
-            l[1].setBackground(c);
+        if (me.getSource() == label[1]) {
+            label[1].setBackground(color1);
         }
-        if (me.getSource() == l[2]) {
-            l[2].setBackground(c);
+        if (me.getSource() == label[2]) {
+            label[2].setBackground(color1);
         }
     }
 }
