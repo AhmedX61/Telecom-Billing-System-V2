@@ -13,12 +13,12 @@ public class employeeadmin extends JFrame implements MouseListener{
     JTable table;
     Color color1,color2;
     Font font1,font2,font3;
-    JRadioButton r1,r2;
-    ButtonGroup bg;
-    Connection conn;
-    PreparedStatement ps = null;
-    ResultSet rs = null;
-    String log;
+    JRadioButton radio1,radio2;
+    ButtonGroup buttongroup;
+    Connection connection;
+    PreparedStatement preparedstatement = null;
+    ResultSet resultset = null;
+    String sql;
     
     public employeeadmin(){
         
@@ -34,7 +34,7 @@ public class employeeadmin extends JFrame implements MouseListener{
         textfield = new JTextField[10];
         color1 = new Color(0, 102, 102);
         color2 = new Color(211, 84, 0);
-        bg = new ButtonGroup();
+        buttongroup = new ButtonGroup();
         font1 = new Font("seirf", Font.BOLD, 22);
         font2 = new Font("seirf", Font.BOLD, 25);
         font3 = new Font("seirf", Font.BOLD, 13);
@@ -47,19 +47,19 @@ public class employeeadmin extends JFrame implements MouseListener{
         table.setBounds(30, 370, 1304, 350);
         panel.add(table);
         
-        r1 = new JRadioButton("Male");
-        r1.setBackground(color1);
-        r1.setBounds(200, 320, 100, 30);
-        r1.setFont(font1);
-        bg.add(r1);
-        panel.add(r1);
+        radio1 = new JRadioButton("Male");
+        radio1.setBackground(color1);
+        radio1.setBounds(200, 320, 100, 30);
+        radio1.setFont(font1);
+        buttongroup.add(radio1);
+        panel.add(radio1);
         
-        r2 = new JRadioButton("Female");
-        r2.setBackground(color1);
-        r2.setBounds(320, 320, 100, 30);
-        r2.setFont(font1);
-        bg.add(r2);
-        panel.add(r2);
+        radio2 = new JRadioButton("Female");
+        radio2.setBackground(color1);
+        radio2.setBounds(320, 320, 100, 30);
+        radio2.setFont(font1);
+        buttongroup.add(radio2);
+        panel.add(radio2);
         
         textfield[0] = new JTextField();
         textfield[0].setBounds(160, 70, 320, 30);
@@ -224,12 +224,12 @@ public class employeeadmin extends JFrame implements MouseListener{
     private void Displaytable(){
         try{
             Class.forName("org.sqlite.JDBC");
-            conn=DriverManager.getConnection("JDBC:sqlite:tlecome.db");
+            connection=DriverManager.getConnection("JDBC:sqlite:tlecome.db");
             System.out.println("Connected");
-            log = "SELECT * FROM employee";
-            ps = conn.prepareStatement(log);
-            rs = ps.executeQuery();
-            table.setModel(DbUtils.resultSetToTableModel(rs));
+            sql = "SELECT * FROM employee";
+            preparedstatement = connection.prepareStatement(sql);
+            resultset = preparedstatement.executeQuery();
+            table.setModel(DbUtils.resultSetToTableModel(resultset));
         }
         catch(Exception e){
             JOptionPane.showMessageDialog(null, e);
@@ -255,21 +255,21 @@ public class employeeadmin extends JFrame implements MouseListener{
         if (me.getSource() == label[9]) {
             try{
                 Class.forName("org.sqlite.JDBC");
-                conn=DriverManager.getConnection("JDBC:sqlite:tlecome.db");
+                connection=DriverManager.getConnection("JDBC:sqlite:tlecome.db");
                 System.out.println("Connected");
-                log = "INSERT INTO employee VALUES(?,?,?,?,?,?)";
-                ps = conn.prepareStatement(log);
-                ps.setString(1, textfield[0].getText());
-                ps.setString(2, textfield[1].getText());
-                ps.setString(3, textfield[2].getText());
-                ps.setString(4, textfield[3].getText());
-                ps.setString(5, textfield[4].getText());
-                if (r1.isSelected()) {
-                    ps.setString(6, "Male");
-                }else if(r2.isSelected()){
-                    ps.setString(6, "Female");
+                sql = "INSERT INTO employee VALUES(?,?,?,?,?,?)";
+                preparedstatement = connection.prepareStatement(sql);
+                preparedstatement.setString(1, textfield[0].getText());
+                preparedstatement.setString(2, textfield[1].getText());
+                preparedstatement.setString(3, textfield[2].getText());
+                preparedstatement.setString(4, textfield[3].getText());
+                preparedstatement.setString(5, textfield[4].getText());
+                if (radio1.isSelected()) {
+                    preparedstatement.setString(6, "Male");
+                }else if(radio2.isSelected()){
+                    preparedstatement.setString(6, "Female");
                 }
-                ps.executeUpdate();
+                preparedstatement.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Record Added!");
             }catch(Exception e){
                 JOptionPane.showMessageDialog(null, e);
@@ -278,11 +278,11 @@ public class employeeadmin extends JFrame implements MouseListener{
         if (me.getSource() == label[10]) {
             try{
                 Class.forName("org.sqlite.JDBC");
-                conn=DriverManager.getConnection("JDBC:sqlite:tlecome.db");
+                connection=DriverManager.getConnection("JDBC:sqlite:tlecome.db");
                 System.out.println("Connected");
-                log = "DELETE FROM employee WHERE phone="+textfield[2].getText();
-                ps = conn.prepareStatement(log);
-                ps.executeUpdate();
+                sql = "DELETE FROM employee WHERE phone="+textfield[2].getText();
+                preparedstatement = connection.prepareStatement(sql);
+                preparedstatement.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Record Deleted!");
             }catch(Exception e){
                 JOptionPane.showMessageDialog(null, e);
@@ -291,16 +291,16 @@ public class employeeadmin extends JFrame implements MouseListener{
         if (me.getSource() == label[11]) {
             try{
                 Class.forName("org.sqlite.JDBC");
-                conn=DriverManager.getConnection("JDBC:sqlite:tlecome.db");
+                connection=DriverManager.getConnection("JDBC:sqlite:tlecome.db");
                 System.out.println("Connected");
-                log = "UPDATE employee SET name=?,phone=?,email=?,pass=?,address=? WHERE phone="+textfield[2].getText();
-                ps = conn.prepareStatement(log);
-                ps.setString(1, textfield[0].getText());
-                ps.setString(2, textfield[1].getText());
-                ps.setString(3, textfield[2].getText());
-                ps.setString(4, textfield[3].getText());
-                ps.setString(5, textfield[4].getText());
-                ps.executeUpdate();
+                sql = "UPDATE employee SET name=?,phone=?,email=?,pass=?,address=? WHERE phone="+textfield[2].getText();
+                preparedstatement = connection.prepareStatement(sql);
+                preparedstatement.setString(1, textfield[0].getText());
+                preparedstatement.setString(2, textfield[1].getText());
+                preparedstatement.setString(3, textfield[2].getText());
+                preparedstatement.setString(4, textfield[3].getText());
+                preparedstatement.setString(5, textfield[4].getText());
+                preparedstatement.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Record Updated!");
             }catch(Exception e){
                 JOptionPane.showMessageDialog(null, e);
@@ -356,5 +356,4 @@ public class employeeadmin extends JFrame implements MouseListener{
             label[2].setBackground(color1);
         }
     }
-    
 }
