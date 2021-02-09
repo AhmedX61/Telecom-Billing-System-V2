@@ -13,9 +13,9 @@ public class historyadmin extends JFrame implements MouseListener{
     Color color1,color2;
     Font font1,font2,font3;
     Connection connection;
-    PreparedStatement ps = null;
-    ResultSet rs = null;
-    String log;
+    PreparedStatement preparedStatement = null;
+    ResultSet resultset = null;
+    String sql;
     
     public historyadmin(){
         
@@ -174,11 +174,11 @@ public class historyadmin extends JFrame implements MouseListener{
             Class.forName("org.sqlite.JDBC");
             connection=DriverManager.getConnection("JDBC:sqlite:tlecome.db");
             System.out.println("Connected");
-            log = "SELECT * FROM customer WHERE Phone=?";
-            ps = connection.prepareStatement(log);
-            ps.setString(1,textfield.getText());
-            rs = ps.executeQuery();
-            table.setModel(DbUtils.resultSetToTableModel(rs));
+            sql = "SELECT * FROM customer WHERE Phone=?";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1,textfield.getText());
+            resultset = preparedStatement.executeQuery();
+            table.setModel(DbUtils.resultSetToTableModel(resultset));
             connection.close();
         }
         catch(ClassNotFoundException | SQLException e){
@@ -191,10 +191,10 @@ public class historyadmin extends JFrame implements MouseListener{
             Class.forName("org.sqlite.JDBC");
             connection=DriverManager.getConnection("JDBC:sqlite:tlecome.db");
             System.out.println("Connected");
-            log = "SELECT * FROM customer";
-            ps = connection.prepareStatement(log);
-            rs = ps.executeQuery();
-            table.setModel(DbUtils.resultSetToTableModel(rs));
+            sql = "SELECT * FROM customer";
+            preparedStatement = connection.prepareStatement(sql);
+            resultset = preparedStatement.executeQuery();
+            table.setModel(DbUtils.resultSetToTableModel(resultset));
             connection.close();
         }
         catch(Exception e){
@@ -231,13 +231,13 @@ public class historyadmin extends JFrame implements MouseListener{
             try{
                 Class.forName("org.sqlite.JDBC");
                 connection=DriverManager.getConnection("JDBC:sqlite:tlecome.db");
-                log = "SELECT * FROM customer WHERE phone=?";
-                ps = connection.prepareStatement(log);
-                ps.setString(1,textfield.getText());
-                rs = ps.executeQuery();
-                if (rs.next()) {
-                    label[7].setText(rs.getString("name"));
-                    label[8].setText(rs.getString("phone"));
+                sql = "SELECT * FROM customer WHERE phone=?";
+                preparedStatement = connection.prepareStatement(sql);
+                preparedStatement.setString(1,textfield.getText());
+                resultset = preparedStatement.executeQuery();
+                if (resultset.next()) {
+                    label[7].setText(resultset.getString("name"));
+                    label[8].setText(resultset.getString("phone"));
                     
                 }else{
                     JOptionPane.showMessageDialog(null, "NO Element Found");
@@ -251,9 +251,9 @@ public class historyadmin extends JFrame implements MouseListener{
             try{
                 Class.forName("org.sqlite.JDBC");
                 connection=DriverManager.getConnection("JDBC:sqlite:tlecome.db");
-                log = "delete from customer where phone ="+textfield.getText();
-                ps = connection.prepareStatement(log);
-                ps.executeUpdate();
+                sql = "delete from customer where phone ="+textfield.getText();
+                preparedStatement = connection.prepareStatement(sql);
+                preparedStatement.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Record Deleted!");
                 connection.close();
             }catch(Exception e){
@@ -268,9 +268,9 @@ public class historyadmin extends JFrame implements MouseListener{
             try{
                 Class.forName("org.sqlite.JDBC");
                 connection=DriverManager.getConnection("JDBC:sqlite:tlecome.db");
-                log = "delete from customer";
-                ps = connection.prepareStatement(log);
-                ps.executeUpdate();
+                sql = "delete from customer";
+                preparedStatement = connection.prepareStatement(sql);
+                preparedStatement.executeUpdate();
                 JOptionPane.showMessageDialog(null, "All Record Deleted!");
                 connection.close();
             }catch(Exception e){
