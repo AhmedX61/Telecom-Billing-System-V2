@@ -11,8 +11,8 @@ public class historyadmin extends JFrame implements MouseListener{
     JTextField textfield;
     JTable table;
     Color color1,color2;
-    Font font1,f1,f2;
-    Connection conn;
+    Font font1,font2,font3;
+    Connection connection;
     PreparedStatement ps = null;
     ResultSet rs = null;
     String log;
@@ -32,8 +32,8 @@ public class historyadmin extends JFrame implements MouseListener{
         color1 = new Color(0, 102, 102);
         color2 = new Color(211, 84, 0);
         font1 = new Font("seirf", Font.BOLD, 22);
-        f1 = new Font("seirf", Font.BOLD, 25);
-        f2 = new Font("seirf", Font.BOLD, 18);
+        font2 = new Font("seirf", Font.BOLD, 25);
+        font3 = new Font("seirf", Font.BOLD, 18);
         
         panel.setBackground(color1);
         panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
@@ -50,7 +50,7 @@ public class historyadmin extends JFrame implements MouseListener{
         label[0] = new JLabel("Bill's History: Admin");
         label[0].setForeground(Color.WHITE);
         label[0].setBounds(8, 3, 300, 30);
-        label[0].setFont(f1);
+        label[0].setFont(font2);
         panel.add(label[0]);
         
         label[1] = new JLabel("   X");
@@ -110,7 +110,7 @@ public class historyadmin extends JFrame implements MouseListener{
         label[7].setOpaque(true);
         label[7].setForeground(new Color(245, 229, 27));
         label[7].setBounds(540, 217, 220, 30);
-        label[7].setFont(f2);
+        label[7].setFont(font3);
         panel.add(label[7]);
         
         label[8] = new JLabel("");
@@ -118,7 +118,7 @@ public class historyadmin extends JFrame implements MouseListener{
         label[8].setOpaque(true);
         label[8].setForeground(new Color(245, 229, 27));
         label[8].setBounds(949, 217, 220, 30);
-        label[8].setFont(f2);
+        label[8].setFont(font3);
         panel.add(label[8]);
         
         label[9] = new JLabel("      View History");
@@ -172,14 +172,14 @@ public class historyadmin extends JFrame implements MouseListener{
         try{
              
             Class.forName("org.sqlite.JDBC");
-            conn=DriverManager.getConnection("JDBC:sqlite:tlecome.db");
+            connection=DriverManager.getConnection("JDBC:sqlite:tlecome.db");
             System.out.println("Connected");
             log = "SELECT * FROM customer WHERE Phone=?";
-            ps = conn.prepareStatement(log);
+            ps = connection.prepareStatement(log);
             ps.setString(1,textfield.getText());
             rs = ps.executeQuery();
             table.setModel(DbUtils.resultSetToTableModel(rs));
-            conn.close();
+            connection.close();
         }
         catch(ClassNotFoundException | SQLException e){
             JOptionPane.showMessageDialog(null, e);
@@ -189,13 +189,13 @@ public class historyadmin extends JFrame implements MouseListener{
     private void Displaytable(){
         try{
             Class.forName("org.sqlite.JDBC");
-            conn=DriverManager.getConnection("JDBC:sqlite:tlecome.db");
+            connection=DriverManager.getConnection("JDBC:sqlite:tlecome.db");
             System.out.println("Connected");
             log = "SELECT * FROM customer";
-            ps = conn.prepareStatement(log);
+            ps = connection.prepareStatement(log);
             rs = ps.executeQuery();
             table.setModel(DbUtils.resultSetToTableModel(rs));
-            conn.close();
+            connection.close();
         }
         catch(Exception e){
             JOptionPane.showMessageDialog(null, e);
@@ -230,9 +230,9 @@ public class historyadmin extends JFrame implements MouseListener{
         if (me.getSource() == label[3]) {
             try{
                 Class.forName("org.sqlite.JDBC");
-                conn=DriverManager.getConnection("JDBC:sqlite:tlecome.db");
+                connection=DriverManager.getConnection("JDBC:sqlite:tlecome.db");
                 log = "SELECT * FROM customer WHERE phone=?";
-                ps = conn.prepareStatement(log);
+                ps = connection.prepareStatement(log);
                 ps.setString(1,textfield.getText());
                 rs = ps.executeQuery();
                 if (rs.next()) {
@@ -242,7 +242,7 @@ public class historyadmin extends JFrame implements MouseListener{
                 }else{
                     JOptionPane.showMessageDialog(null, "NO Element Found");
                 }
-                conn.close();
+                connection.close();
             }catch(Exception e){
                 JOptionPane.showMessageDialog(null, e);
             }
@@ -250,12 +250,12 @@ public class historyadmin extends JFrame implements MouseListener{
         if (me.getSource() == label[12]) {
             try{
                 Class.forName("org.sqlite.JDBC");
-                conn=DriverManager.getConnection("JDBC:sqlite:tlecome.db");
+                connection=DriverManager.getConnection("JDBC:sqlite:tlecome.db");
                 log = "delete from customer where phone ="+textfield.getText();
-                ps = conn.prepareStatement(log);
+                ps = connection.prepareStatement(log);
                 ps.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Record Deleted!");
-                conn.close();
+                connection.close();
             }catch(Exception e){
                 JOptionPane.showMessageDialog(null, e);
             }
@@ -267,12 +267,12 @@ public class historyadmin extends JFrame implements MouseListener{
         if (me.getSource() == label[13]) {
             try{
                 Class.forName("org.sqlite.JDBC");
-                conn=DriverManager.getConnection("JDBC:sqlite:tlecome.db");
+                connection=DriverManager.getConnection("JDBC:sqlite:tlecome.db");
                 log = "delete from customer";
-                ps = conn.prepareStatement(log);
+                ps = connection.prepareStatement(log);
                 ps.executeUpdate();
                 JOptionPane.showMessageDialog(null, "All Record Deleted!");
-                conn.close();
+                connection.close();
             }catch(Exception e){
                 JOptionPane.showMessageDialog(null, e);
             }
